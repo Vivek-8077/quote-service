@@ -1,7 +1,10 @@
-FROM python:3.9-slim
+FROM eclipse-temurin:17-jre
+
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-EXPOSE 5000
-CMD ["python", "app.py"]
+
+COPY target/demo-0.0.1-SNAPSHOT.jar app.jar
+
+EXPOSE 8081
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+
