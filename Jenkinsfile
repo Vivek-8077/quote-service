@@ -32,17 +32,20 @@ pipeline {
                     docker rm -f quote-service-container || true
 
                     echo "Running new container..."
-                    docker run -d --name quote-service-container -p 8081:8081 quote-service:latest
+<<<<<<< HEAD
+sh 'docker run -d --name quote-service-container -p 8081:8081 quote-service:latest'
+=======
+sh 'docker run -d --name quote-service-container -p 8082:8082 quote-service:latest'
+>>>>>>> 62fef0e... Update Jenkinsfile to use port 8082
+
 
                     echo "Waiting for app to start..."
                     sleep 10
 
                     echo "Testing app endpoint:"
-                    curl -f http://localhost:8081 || exit 1
-                '''
-            }
-        }
-    }
+                    curl -f http://localhost:8082 || exit 1
+}
+
 
     post {
         always {
