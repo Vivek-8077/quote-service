@@ -26,24 +26,23 @@ pipeline {
         }
 
         stage('Docker Run') {
-    steps {
-        sh '''
-            echo "Stopping existing container if any..."
-            docker rm -f quote-service-container || true
+            steps {
+                sh '''
+                    echo "Stopping existing container if any..."
+                    docker rm -f quote-service-container || true
 
-            echo "Running new container..."
-            docker run -d --name quote-service-container -p 8081:8081 quote-service
+                    echo "Running new container..."
+                    docker run -d --name quote-service-container -p 8081:8081 quote-service:latest
 
-            echo "Waiting for app to start..."
-            sleep 10
+                    echo "Waiting for app to start..."
+                    sleep 10
 
-            echo "Testing app endpoint:"
-            curl -f http://localhost:8081 || exit 1
-        '''
+                    echo "Testing app endpoint:"
+                    curl -f http://localhost:8081 || exit 1
+                '''
+            }
+        }
     }
-}
-
-
 
     post {
         always {
